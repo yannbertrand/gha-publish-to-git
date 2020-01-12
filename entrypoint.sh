@@ -82,6 +82,9 @@ if [ "$(git ls-remote --heads "${REMOTE}" "${BRANCH}"  | wc -l)" == 0 ] ; then
     echo "Creating initial commit"
     git add "${TARGET_PATH}" || exit 1
     git commit -m "${INITIAL_COMMIT_MESSAGE}" --author "${COMMIT_AUTHOR}" || exit 1
+    npx gitmoji-changelog@canary --preset generic --output changelog.md
+    git add changelog.md
+    git commit --amend --no-edit
     COMMIT_HASH="$(git rev-parse HEAD)"
     echo "Created commit ${COMMIT_HASH}"
 
@@ -108,7 +111,10 @@ rsync -a --quiet --delete --exclude ".git" "${SOURCE_PATH}/" "${TARGET_PATH}" ||
 #
 echo "Creating commit"
 git add "${TARGET_PATH}" || exit 1
-git commit -m "${COMMIT_MESSAGE}" --author "${COMMIT_AUTHOR}" || exit 1
+git commit -m "${COMMIT_MESSAGE}" --author "${COMMIT_AUTHOR}" || exit 0
+npx gitmoji-changelog@canary --preset generic --output changelog.md
+git add changelog.md
+git commit --amend --no-edit
 COMMIT_HASH="$(git rev-parse HEAD)"
 echo "Created commit ${COMMIT_HASH}"
 

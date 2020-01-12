@@ -2,8 +2,6 @@ name: publish-to-git
 
 on:
   push:
-    branches:
-      - master
   pull_request:
 
 jobs:
