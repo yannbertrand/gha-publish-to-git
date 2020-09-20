@@ -113,7 +113,7 @@ echo "Creating commit"
 git add "${TARGET_PATH}" || exit 1
 git restore --staged changelog.md
 git commit -m "${COMMIT_MESSAGE}" --author "${COMMIT_AUTHOR}" || exit 0
-echo "Created commit ${git rev-parse HEAD}"
+echo "Created commit $(git rev-parse HEAD)"
 npx gitmoji-changelog@canary --preset generic --output changelog.md
 git add changelog.md
 git commit -m ":bookmark: Update changelog" --author "${COMMIT_AUTHOR}" || exit 0
