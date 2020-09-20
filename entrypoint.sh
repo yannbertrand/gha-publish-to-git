@@ -111,9 +111,12 @@ rsync -a --quiet --delete --exclude ".git" "${SOURCE_PATH}/" "${TARGET_PATH}" ||
 #
 echo "Creating commit"
 git add "${TARGET_PATH}" || exit 1
+git commit -m "${COMMIT_MESSAGE}" --author "${COMMIT_AUTHOR}" || exit 0
+COMMIT_HASH="$(git rev-parse HEAD)"
+echo "Created commit ${COMMIT_HASH}"
 npx gitmoji-changelog@canary --preset generic --output changelog.md
 git add changelog.md
-git commit -m "${COMMIT_MESSAGE}" --author "${COMMIT_AUTHOR}" || exit 0
+git commit -m ":bookmark: Update changelog" --author "${COMMIT_AUTHOR}" || exit 0
 COMMIT_HASH="$(git rev-parse HEAD)"
 echo "Created commit ${COMMIT_HASH}"
 
