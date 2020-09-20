@@ -111,10 +111,11 @@ rsync -a --quiet --delete --exclude ".git" "${SOURCE_PATH}/" "${TARGET_PATH}" ||
 #
 echo "Creating commit"
 git add "${TARGET_PATH}" || exit 1
+git restore changelog.md
 git status
 git commit -m "${COMMIT_MESSAGE}" --author "${COMMIT_AUTHOR}" || exit 0
 npx gitmoji-changelog@canary --preset generic --output changelog.md
-git diff changelog.md
+git diff
 git add changelog.md
 git status
 git commit --amend --no-edit
