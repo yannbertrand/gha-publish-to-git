@@ -114,6 +114,7 @@ git add "${TARGET_PATH}" || exit 1
 git status
 git commit -m "${COMMIT_MESSAGE}" --author "${COMMIT_AUTHOR}" || exit 0
 npx gitmoji-changelog@canary --preset generic --output changelog.md
+git diff changelog.md
 git add changelog.md
 git status
 git commit --amend --no-edit
