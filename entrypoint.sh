@@ -110,11 +110,11 @@ rsync -a --quiet --delete --exclude ".git" "${SOURCE_PATH}/" "${TARGET_PATH}" ||
 # Create commit with changes.
 #
 echo "Creating commit"
-git diff
+git status
 git add "${TARGET_PATH}" || exit 1
 git commit -m "${COMMIT_MESSAGE}" --author "${COMMIT_AUTHOR}" || exit 0
 npx gitmoji-changelog@canary --preset generic --output changelog.md
-git diff changelog.md
+git status
 git add changelog.md
 git commit --amend --no-edit
 COMMIT_HASH="$(git rev-parse HEAD)"
